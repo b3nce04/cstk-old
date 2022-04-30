@@ -1,0 +1,20 @@
+<nav class="sidenav">
+    <div class="logo">Csoportos Tételkezelő Rendszer</div>
+    <div class="version">v1.0.0</div>
+    <ul class="nav-links">
+        <li class="active"><a href="#">Főoldal</a></li>
+        <li><a href="#">Osztályok</a></li>
+    </ul>
+    <div class="profile">
+        <img class="picture rounded-circle mx-auto" src="images/pic.png" alt="profile pic">
+        <ul class="user-info">
+            <li>
+                <%= name %>
+            </li>
+            <li>Pontok: <span>
+                    <%= points %>
+                </span></li>
+            <li><a href="">adataim</a> | <a href="/logout">kijelentkezés</a></li>
+        </ul>
+    </div>
+</nav>

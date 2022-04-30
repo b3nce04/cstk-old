@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+    <%- include('includes/head'); -%>
+
+        <body>
+            <div class="shadow card login-box mt-5">
+                <div class="p-4">
+                    <h3 class="fw-light">Csoportos tételkezelő rendszer</h3>
+                    <h5 class="fw-bold text-primary text-uppercase">Bejeletkezés</h5>
+                    <hr>
+                    <% if(message != '') { %>
+                        <div class="alert alert-primary" role="alert">
+                            <%= message %>
+                        </div>
+                    <% } %>
+                    <form action="/user/login" method="POST">
+                        <div class="form-floating mt-2">
+                            <input name="username" type="username" autocomplete="on" class="form-control" required autofocus>
+                            <label>Felhasználónév</label>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input name="password" type="password" autocomplete="on" class="form-control" required>
+                            <label>Jelszó</label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <button class="btn btn-outline-primary w-100" id="loginButton-" type="submit">Bejelentkezés</button>
+                        </div>
+                        <div class="form-group mt-4">
+                            <a class="btn btn-link w-100" href="/register">Regisztráció</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </body>
+
+</html>
