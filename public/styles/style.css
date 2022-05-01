@@ -1,5 +1,5 @@
 :root {
-    --sidebar-width: 225px;
+    --sidebar-width: 250px;
 }
 
 body {
@@ -7,10 +7,9 @@ body {
 }
 
 .login-box {
-    max-width: 500px;
+    max-width: 450px;
     margin: 0 auto;
 }
-
 
 /* Sidenav */
 .sidenav {
@@ -32,15 +31,19 @@ body {
 	line-height: 1.2;
 }
 
+.sidenav > .logo a {
+	text-decoration: none;
+}
+
 .sidenav > .version {
 	text-align: center;
 	font-size: 16px;
 	font-weight: 500;
 	color: black;
+	padding: 5px;
 }
 
 .sidenav > .nav-links {
-	margin-top: 40px;
 	list-style-type: none;
 	padding: 0;
 	background-color: #f0f0f0;
@@ -99,29 +102,24 @@ body {
     color: #0d6efd;
 }
 
-@media (max-width: 768px) {
-    .sidenav{
-        background-color: #929292;
-    }
-}
-
 /* Content */
-.content {
+.content > .container {
     margin-left: var(--sidebar-width);
-    text-align: justify;
+	padding: 10px;
 }
 
-.content > .page-title {
+.content > .container > .page-title {
     text-align: left;
-    padding: 20px;
-    background-color: white;
+	font-size: 2rem;
     color: #383838;
 }
 
-.content footer {
+.content > footer {
+	margin-left: var(--sidebar-width);
     background-color: #dfdfdf;
     padding: 15px;
     width: 100%;
-    bottom: 0;
     text-align: left;
+	bottom: 0;
+	position: fixed;
 }

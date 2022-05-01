@@ -1,0 +1,19 @@
+nav.sidenav
+    .logo 
+        a(href='/account') Csoportos Tételkezelő Rendszer
+    .version v#{VERSION}
+    ul.nav-links
+        li.active
+            a Főoldal
+        li
+            a Osztályok
+    .profile
+        img.picture.rounded-circle.mx-auto(src='images/pic' + pictureID + '.png', alt='profilkép')
+        ul.user-info
+            li #{name} 
+                span (#{className})
+            li Pontok: 
+                span #{points}
+            li
+                a Adataim | 
+                a(href='/user/logout') Kijelentkezés
