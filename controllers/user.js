@@ -17,7 +17,7 @@ const authUser = () => {
 }
 
 const userLogin = passport.authenticate('local', {
-    successRedirect: '/account',
+    successRedirect: '/main',
     failureRedirect: '/login',
     failureFlash : true
 })

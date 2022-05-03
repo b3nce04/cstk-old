@@ -38,7 +38,7 @@ app.use('/user', userRoutes)
 // Root
 app.get('/', (req, res) => {
     if (req.isAuthenticated()) {
-        res.redirect('/account')
+        res.redirect('/main')
     } else {
         res.redirect('/login')
     }
@@ -58,8 +58,28 @@ app.use((req, res, next) => {
     next()
 })
 
+app.get('/main', isLoggedIn, (req, res) => {
+    res.render('main', {
+        name: req.user.username, 
+        points: req.user.points,
+        className: req.user.class,
+        pictureID: req.user.pictureID,
+        userID: req.user._id
+    })
+})
+
 app.get('/account', isLoggedIn, (req, res) => {
-    res.render('panel', {
+    res.render('account', {
+        name: req.user.username, 
+        points: req.user.points,
+        className: req.user.class,
+        pictureID: req.user.pictureID,
+        userID: req.user._id
+    })
+})
+
+app.get('/teszt', isLoggedIn, (req, res) => {
+    res.render('teszt', {
         name: req.user.username, 
         points: req.user.points,
         className: req.user.class,

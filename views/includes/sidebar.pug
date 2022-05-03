@@ -1,12 +1,13 @@
+button#btnNavbarToggle.btn.btn-outline-dark <<
 nav.sidenav
     .logo 
-        a(href='/account') Csoportos Tételkezelő Rendszer
+        a(href='/') Csoportos Tételkezelő Rendszer
     .version v#{VERSION}
     ul.nav-links
-        li.active
-            a Főoldal
-        li
-            a Osztályok
+        li.nav-item
+            a.nav-link(href='/main') Főoldal
+        li.nav-item
+            a.nav-link(href='/teszt') Osztályok
     .profile
         img.picture.rounded-circle.mx-auto(src='images/pic' + pictureID + '.png', alt='profilkép')
         ul.user-info
@@ -15,5 +16,5 @@ nav.sidenav
             li Pontok: 
                 span #{points}
             li
-                a Adataim | 
+                a(href='/account') Adataim | 
                 a(href='/user/logout') Kijelentkezés
