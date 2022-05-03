@@ -5,8 +5,11 @@ import userModel from '../models/user.js'
 import codeModel from '../models/code.js'
 
 const authUser = () => {
-    passport.use(new LocalStrategy((username, password, done) => {
-        userModel.findOne({username: username}, async (err, user) => {
+    passport.use('local-login', new LocalStrategy({
+        passReqToCallback: true
+    },
+    function(req, username, password, done) {
+        userModel.findOne({username: username, class: req.body.className}, async (err, user) => {
             if (err) {return done(err)}
             if (!user) {return done(null, false, {type: 'message', message: 'Hibás felhasználónév vagy jelszó!'})}
             const comparePassword = await bcrypt.compare(password, user.password)
@@ -16,7 +19,7 @@ const authUser = () => {
     }))
 }
 
-const userLogin = passport.authenticate('local', {
+const userLogin = passport.authenticate('local-login', {
     successRedirect: '/main',
     failureRedirect: '/login',
     failureFlash : true
@@ -92,9 +95,25 @@ const userRegister = async (req, res) => {
     })
 }
 
+const updateUser = async (req, res, next) => {
+    if (req.params.type === 'picture') {
+        
+    } else if (req.params.type === 'details') {
+        const {fullname} = req.body
+        console.log(req.user);
+        const user = await userModel.findOne({ _id: req.user._id })
+        const update = {name: fullname}
+        await user.updateOne(update)
+        .then(() => {
+            req.flash('message', 'Az adatok frissítése sikeres!')
+            res.redirect('/account')
+        })
+    }
+}
+
 const logoutUser = async (req, res) => {
+    req.session.destroy()
     req.logout()
     res.redirect('/')
 }
-
-export {userLogin, userRegister, logoutUser, authUser, isLoggedIn, isNotLoggedIn}
+export {userLogin, userRegister, updateUser, logoutUser, authUser, isLoggedIn, isNotLoggedIn}

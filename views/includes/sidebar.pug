@@ -7,14 +7,22 @@ nav.sidenav
         li.nav-item
             a.nav-link(href='/main') Főoldal
         li.nav-item
-            a.nav-link(href='/teszt') Osztályok
+            a.nav-link(href='/classes') Tantárgyak
+        li.nav-item
+            a.nav-link Teszt
+        li.nav-item
+            a.nav-link Teszt
+        li.nav-item
+            a.nav-link Teszt
+        li.nav-item
+            a.nav-link Teszt
     .profile
-        img.picture.rounded-circle.mx-auto(src='images/pic' + pictureID + '.png', alt='profilkép')
+        img.picture.rounded-circle.mx-auto(src='images/pic' + user.pictureID + '.png', alt='profilkép')
         ul.user-info
-            li #{name} 
-                span (#{className})
+            li #{user.username} 
+                span (#{user.class})
             li Pontok: 
-                span #{points}
+                span #{user.points}
             li
                 a(href='/account') Adataim | 
                 a(href='/user/logout') Kijelentkezés

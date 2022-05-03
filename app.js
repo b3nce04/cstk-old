@@ -5,7 +5,6 @@ import flash from 'connect-flash'
 import mongoose from 'mongoose'
 import passport from 'passport'
 
-
 import userRoutes from './routes/user.js'
 
 import {authUser, isLoggedIn, isNotLoggedIn} from './controllers/user.js'
@@ -58,33 +57,23 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use(isLoggedIn, (req, res, next) => {
+    res.locals.user = req.user
+    res.locals.sessionID = req.sessionID
+    next()
+})
+
 app.get('/main', isLoggedIn, (req, res) => {
-    res.render('main', {
-        name: req.user.username, 
-        points: req.user.points,
-        className: req.user.class,
-        pictureID: req.user.pictureID,
-        userID: req.user._id
-    })
+    res.render('main')
 })
 
 app.get('/account', isLoggedIn, (req, res) => {
-    res.render('account', {
-        name: req.user.username, 
-        points: req.user.points,
-        className: req.user.class,
-        pictureID: req.user.pictureID,
-        userID: req.user._id
-    })
+    res.render('account', {message: req.flash('message')})
 })
 
-app.get('/teszt', isLoggedIn, (req, res) => {
-    res.render('teszt', {
-        name: req.user.username, 
-        points: req.user.points,
-        className: req.user.class,
-        pictureID: req.user.pictureID,
-        userID: req.user._id
+app.get('/classes', isLoggedIn, (req, res) => {
+    res.render('classes', {
+        
     })
 })
 
