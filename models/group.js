@@ -13,6 +13,9 @@ const Group = database.define('Group', {
     name: {
         type: DataTypes.STRING
     },
+    isOpen: {
+        type: DataTypes.BOOLEAN
+    }
 })
 
 Group.sync().then();

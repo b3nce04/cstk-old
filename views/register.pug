@@ -1,39 +1,36 @@
 doctype html
 html(lang='hu')
     include includes/head.pug
-    body
+    body.login-background
         .shadow.card.login-box
-            .row
-                .col-md-6.d-none.d-md-block.bg-register-image
-                .col-md-6
-                    .p-5
-                        h3.fw-light Csoportos tételkezelő rendszer
-                        h5.fw-bold.text-primary.text-uppercase Regisztráció
-                        hr
-                        if message.length
-                            .alert.alert-primary(role='alert') #{message}
-                        form(action='/user/register' method='POST')
-                            .form-floating.mt-2
-                                input.form-control(type='text' name='username' autocomplete='off' required='' autofocus='')
-                                label Felhasználónév
-                            .form-floating.mt-2
-                                input.form-control(type='email' name='email' autocomplete='off' required='')
-                                label E-mail cím
-                            .form-floating.mt-2
-                                input.form-control(type='password' name='password1' autocomplete='off' required='')
-                                label Jelszó
-                            .form-floating.mt-2
-                                input.form-control(type='password' name='password2' autocomplete='off' required='')
-                                label Jelszó mégegyszer
-                            .form-floating.mt-2
-                                input.form-control(type='text' name='code' autocomplete='off' maxlength='8' required='')
-                                label Regisztrációs kód
-                            .form-floating.mt-2
-                                select.form-select(name='classID')
-                                    each val in classList
-                                        option(value=val.id)= val.name
-                                label Válassz osztályt
-                            .form-group.mt-4
-                                button.btn.btn-outline-primary.w-100(type='submit') Regisztráció
-                            .form-group.mt-4
-                                a.btn.btn-link.w-100(href='/login') Vissza a bejelentkezéshez
+            .p-5
+                h3.fw-light Csoportos tételkezelő rendszer
+                h5.fw-bold.text-primary.text-uppercase Regisztráció
+                hr
+                if message.length
+                    .alert.alert-primary(role='alert') #{message}
+                form(action='/user/register' method='POST')
+                    .form-floating.mt-2
+                        input.form-control(type='text' name='username' autocomplete='off' required='' placeholder=' ')
+                        label Felhasználónév
+                    .form-floating.mt-2
+                        input.form-control(type='email' name='email' autocomplete='off' required='' placeholder=' ')
+                        label E-mail cím
+                    .form-floating.mt-2
+                        input.form-control(type='password' name='password1' autocomplete='off' required='' placeholder=' ')
+                        label Jelszó
+                    .form-floating.mt-2
+                        input.form-control(type='password' name='password2' autocomplete='off' required='' placeholder=' ')
+                        label Jelszó mégegyszer
+                    .form-floating.mt-2
+                        input.form-control(type='text' name='code' autocomplete='off' maxlength='8' required='' placeholder=' ')
+                        label Regisztrációs kód
+                    .form-floating.mt-2
+                        select.form-select(name='classID')
+                            each val in classList
+                                option(value=val.id)= val.name
+                        label Válassz osztályt
+                    .form-group.mt-4
+                        button.btn.btn-outline-primary.w-100(type='submit') Regisztráció
+                    .form-group.mt-4
+                        a.btn.btn-link.w-100(href='/login') Vissza a bejelentkezéshez

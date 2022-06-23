@@ -5,5 +5,7 @@ html(lang='hu')
         include includes/sidebar.pug
         .content
             .container
-                .page-title.mb-3 Tantárgyak
+                .page-title Főoldal
+                .row
+                    block content
                 include includes/footer.pug

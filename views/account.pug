@@ -1,6 +1,6 @@
 doctype html
 html(lang='hu')
-    include includes/head.pug
+    extends includes/head.pug
     body.bg-light.text-black
         include includes/sidebar.pug
         .content
@@ -30,4 +30,4 @@ html(lang='hu')
                                         label Név
                                     button.btn.btn-primary(type='submit') Adatok mentése
                                 p Regisztráltál: #{user.registered}
-                include includes/footer.pug
+                include ./includes/footer.pug

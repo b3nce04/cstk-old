@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
 
+import database from './database.js'
 import userModel from '../models/user.js'
 import codeModel from '../models/code.js'
 
@@ -22,7 +23,7 @@ const authUser = () => {
 }
 
 const userLogin = passport.authenticate('local-login', {
-    successRedirect: '/main',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash : true
 })
@@ -32,13 +33,13 @@ const isLoggedIn = (req, res, next) => {
         next()
     } else {
         req.flash('login-message', 'Először be kell jelentkezned!')
-        res.redirect('/')
+        res.redirect('/login')
     }
 }
 
 const isNotLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        next() 
+        next()
     } else {
         res.redirect('/')
     }
@@ -87,7 +88,8 @@ const userRegister = async (req, res) => {
         username: username,
         password: hashedPassword,
         emailAddress: email,
-        classID: classID
+        classID: classID,
+        registrationDate: database.literal('CURRENT_TIMESTAMP')
     })
     .then(() => {
         existCode.destroy()
@@ -112,6 +114,12 @@ const updateUser = async (req, res, next) => {
 const logoutUser = async (req, res) => {
     req.session.destroy()
     req.logout()
-    res.redirect('/')
+    res.redirect('/login')
 }
-export {userLogin, userRegister, updateUser, logoutUser, authUser, isLoggedIn, isNotLoggedIn}
+
+const countClassMembersByClassID = async (id) => {
+    const count = await userModel.count({where: {classID: id}});
+    return count;
+}
+
+export {userLogin, userRegister, updateUser, logoutUser, authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID}

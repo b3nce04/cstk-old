@@ -10,7 +10,8 @@ const sequelize = new Sequelize(
 		define: {
 			timestamps: false,
 		},
-		logging: false
+		logging: false,
+		timezone: "+02:00"
 	}
 );
 

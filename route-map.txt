@@ -1,7 +1,8 @@
 Routes
-/
-/login
-/register
+/ -> app
+    /groups
+/login -> panel
+/register -> panel
 
 POST & GET requests
 /user/login

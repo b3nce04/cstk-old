@@ -6,10 +6,11 @@ import passport from "passport";
 import NodeCache from "node-cache";
 
 import database from "./controllers/database.js";
-import { authUser, isLoggedIn, isNotLoggedIn } from "./controllers/user.js";
+import { authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID } from "./controllers/user.js";
 import { getClassList, getClassNameById } from "./controllers/class.js";
 
 import userRoutes from "./routes/user.js";
+import groupsRoutes from "./routes/groups.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,17 +48,10 @@ app.use(flash());
 
 authUser();
 
-// Routes
+//// Before login ////
 app.use("/user", userRoutes);
 
-app.get("/", (req, res) => {
-	if (req.isAuthenticated()) {
-		res.redirect("/main");
-	} else {
-		res.redirect("/login");
-	}
-});
-
+// Middlewares
 app.use(async (req, res, next) => {
 	res.locals.VERSION = process.env.npm_package_version;
 	res.locals.classList = ServerCache.get("classList");
@@ -79,19 +73,20 @@ app.use(isLoggedIn, async (req, res, next) => {
 	next();
 });
 
-app.get("/main", isLoggedIn, (req, res) => {
-	res.render("main");
-});
+//// After login ////
+app.use("/groups", isLoggedIn, groupsRoutes);
+
+app.get('/', isLoggedIn, async (req, res) => {
+	res.render('main', {
+		classMembers: await countClassMembersByClassID(req.user.classID)
+	});
+})
 
 app.get("/myaccount", isLoggedIn, (req, res) => {
 	res.render("account", {
 		pictureMessage: req.flash("account-message1"),
 		detailsMessage: req.flash("account-message2"),
 	});
-});
-
-app.get("/classes", isLoggedIn, (req, res) => {
-	res.render("classes", {});
 });
 
 // Error page
