@@ -3,12 +3,12 @@ html(lang='hu')
     include includes/head.pug
     body.login-background
         .shadow.card.login-box
-            .p-5
+            .p-4
                 h3.fw-light Csoportos tételkezelő rendszer
                 h5.fw-bold.text-primary.text-uppercase Regisztráció
                 hr
                 if message.length
-                    .alert.alert-primary(role='alert') #{message}
+                    .alert.alert-primary.message(role='alert') #{message}
                 form(action='/user/register' method='POST')
                     .form-floating.mt-2
                         input.form-control(type='text' name='username' autocomplete='off' required='' placeholder=' ')

@@ -6,10 +6,18 @@ $(function () {
 });
 
 $("#btnNavbarToggle").click(function () {
-    var navbar = $("nav.sidenav").toggleClass("showed")
-    $('#btnNavbarToggle').text(navbar.hasClass('showed') ? '<' : '>')
+	var navbar = $("nav.sidenav").toggleClass("showed");
+	$("#btnNavbarToggle").text(navbar.hasClass("showed") ? "<" : ">");
 });
 
-$(".toggleLogout").click(()=> {
-	$('#logoutModal').modal('toggle')
+$(".toggleLogout").click(() => {
+	$("#logoutModal").modal("toggle");
+});
+
+$(".moderatorMessage").click(() => {
+	$(".moderatorMessage").hide();
+});
+
+$(".personalMessage").click(() => {
+	$(".personalMessage").hide();
 });

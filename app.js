@@ -8,6 +8,7 @@ import NodeCache from "node-cache";
 import database from "./controllers/database.js";
 import { authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID } from "./controllers/user.js";
 import { getClassList, getClassNameById } from "./controllers/class.js";
+import { getMessages } from "./controllers/messages.js";
 
 import userRoutes from "./routes/user.js";
 import groupsRoutes from "./routes/groups.js";
@@ -30,6 +31,7 @@ await database
 	});
 
 ServerCache.set("classList", await getClassList());
+ServerCache.set("globalMessages", await getMessages(0));
 
 app.set("view engine", "pug");
 app.set("views", "views");
@@ -67,9 +69,10 @@ app.get("/register", isNotLoggedIn, (req, res) => {
 });
 
 app.use(isLoggedIn, async (req, res, next) => {
-	res.locals.user = req.user;
-	res.locals.sessionID = req.sessionID;
-	res.locals.className = await getClassNameById(req.user.classID);
+	res.locals.user = req.user,
+	res.locals.sessionID = req.sessionID,
+	res.locals.className = await getClassNameById(req.user.classID),
+	res.locals.globalMessages = ServerCache.get("globalMessages"),
 	next();
 });
 
@@ -78,7 +81,8 @@ app.use("/groups", isLoggedIn, groupsRoutes);
 
 app.get('/', isLoggedIn, async (req, res) => {
 	res.render('pages/index', {
-		classMembers: await countClassMembersByClassID(req.user.classID)
+		classMembers: await countClassMembersByClassID(req.user.classID),
+		classMessages: await getMessages(req.user.classID),
 	});
 })
 

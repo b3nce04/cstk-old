@@ -10,8 +10,11 @@ const Class = database.define('Class', {
     name: {
         type: DataTypes.CHAR
     },
-    headTeacher: {
-        type: DataTypes.INTEGER,
+    moderatorID: {
+        type: DataTypes.INTEGER
+    },
+    headTeacherName: {
+        type: DataTypes.STRING,
     },
 })
 

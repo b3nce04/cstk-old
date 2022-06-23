@@ -10,4 +10,9 @@ const getClassNameById = async (id) => {
     return classObject.name
 }
 
-export {getClassList, getClassNameById}
+const isModerator = async (classid, userid) => {
+    const classObject = await classModel.findOne({where: {id: classid}})
+    return classObject.moderatorID === userid;
+}
+
+export {getClassList, getClassNameById, isModerator}

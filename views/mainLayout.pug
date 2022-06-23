@@ -16,6 +16,12 @@ html(lang='hu')
                     a.nav-link(href='/') Főoldal
                 li.nav-item
                     a.nav-link(href='/groups') Csoportok
+                li.nav-item
+                    a.nav-link(href='') Tételek
+                li.nav-item
+                    a.nav-link(href='') Vizsgák
+                li.nav-item
+                    a.nav-link(href='') Moderátori felület
             .profile
                 img.picture.rounded-circle.mx-auto(src='images/pic' + user.pictureID + '.png' alt='profilkép')
                 ul.user-info
@@ -29,5 +35,9 @@ html(lang='hu')
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container
+                each val in globalMessages
+                    .alert.alert-primary
+                        i.bi.bi-exclamation-diamond-fill 
+                        | #{val.text}
                 block content
                 footer CSTK | v#{VERSION} | User ID: #{user.id} | Session ID: #{sessionID}

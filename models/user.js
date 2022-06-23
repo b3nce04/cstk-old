@@ -16,15 +16,17 @@ const User = database.define('User', {
     emailAddress: {
         type: DataTypes.STRING
     },
+    fullName: {
+        type: DataTypes.STRING
+    },
+    birthDate: {
+        type: DataTypes.DATE
+    },
     classID: {
         type: DataTypes.INTEGER
     },
     registrationDate: {
         type: DataTypes.DATE
-    },
-    isTeacher: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
     },
     points: {
         type: DataTypes.INTEGER,

@@ -16,13 +16,23 @@ block content
                         button.btn.btn-primary(type='submit') Kép feltöltése
         .col-xl-8.mb-3
             .card
-                .card-header Fiókbeállítás
+                .card-header Adatok
                 .card-body
                     if detailsMessage.length
                         .alert.alert-primary(role='alert') #{detailsMessage}
-                    form(action='/user/update/details' method='POST')
-                        .form-floating.mb-3
-                            input.form-control(type='name' value=user.name name='fullname')
-                            label Név
-                        button.btn.btn-primary(type='submit') Adatok mentése
-                    p Regisztráltál: #{user.registered}
+                    p
+                        | Teljes név: 
+                        | #{user.fullName}
+                    p
+                        | E-mail cím: 
+                        | #{user.emailAddress}
+                    p Regisztráltál: #{user.registrationDate}
+                    label(for="birthday") Születésnap:
+                    input(type="date",id="birthday",name="birthday",value="2000-00-00")
+    .row
+        .col-12
+            .card
+                .card-header Adatok
+                .card-body
+                    p Iskolád: nincs
+                    p Osztályfőnököd: Kubik József

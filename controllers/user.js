@@ -32,7 +32,6 @@ const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
     } else {
-        req.flash('login-message', 'Először be kell jelentkezned!')
         res.redirect('/login')
     }
 }
