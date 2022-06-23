@@ -1,0 +1,20 @@
+extends ../mainLayout.pug
+
+block content
+    .page-title Csoportok
+    .row
+        each val in groupList
+            .col-md-3.mb-3
+                .card.shadow
+                    .card-body
+                        b= val.name
+                        br
+                        a Állapot: 
+                            if val.isOpen 
+                                b.text-primary Nyitva
+                            else
+                                b.text-danger Zárva
+        .col-md-3.mb-3
+            .card.shadow
+                .card-body
+                    a.h5.text-uppercase.mb-0(href='/new-group') Új csoport lérehozása

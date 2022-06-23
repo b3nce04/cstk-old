@@ -1,0 +1,33 @@
+extends ../mainLayout.pug
+
+block content
+    .page-title Főoldal
+    .row
+        .col-md-3.mb-3
+            .card.border-0.border-end.border-primary.border-3.shadow.py-2
+                .card-body
+                    .row.no-gutters.align-items-center
+                        .col.mr-2
+                            .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Beküldött anyagok
+                            .h5.mb-0.font-weight-bold.text-gray-800 0
+        .col-md-3.mb-3
+            .card.border-0.border-end.border-primary.border-3.shadow.py-2
+                .card-body
+                    .row.no-gutters.align-items-center
+                        .col.mr-2
+                            .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Felhasznált anyagok
+                            .h5.mb-0.font-weight-bold.text-gray-800 0
+        .col-md-3.mb-3
+            .card.border-0.border-end.border-primary.border-3.shadow.py-2
+                .card-body
+                    .row.no-gutters.align-items-center
+                        .col.mr-2
+                            .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Osztálylétszám
+                            .h5.mb-0.font-weight-bold.text-gray-800 #{classMembers}
+        .col-md-3.mb-3
+            .card.border-0.border-end.border-primary.border-3.shadow.py-2
+                .card-body
+                    .row.no-gutters.align-items-center
+                        .col.mr-2
+                            .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Tanárok száma
+                            .h5.mb-0.font-weight-bold.text-gray-800 0

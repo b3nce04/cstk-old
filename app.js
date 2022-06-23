@@ -77,13 +77,13 @@ app.use(isLoggedIn, async (req, res, next) => {
 app.use("/groups", isLoggedIn, groupsRoutes);
 
 app.get('/', isLoggedIn, async (req, res) => {
-	res.render('main', {
+	res.render('pages/index', {
 		classMembers: await countClassMembersByClassID(req.user.classID)
 	});
 })
 
-app.get("/myaccount", isLoggedIn, (req, res) => {
-	res.render("account", {
+app.get("/my-account", isLoggedIn, (req, res) => {
+	res.render("pages/account", {
 		pictureMessage: req.flash("account-message1"),
 		detailsMessage: req.flash("account-message2"),
 	});

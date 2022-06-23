@@ -1,0 +1,33 @@
+doctype html
+html(lang='hu')
+    include includes/head.pug
+    body.bg-light.text-black
+        include mixins/modal.pug
+        +modal('logoutModal', 'Kijelentkezés', 'Biztos ki szeretnél jelentkezni?', 
+            {name: "toggleLogout", text: "Nem"},
+            {href: "/user/logout", text: "Igen"}
+        )
+        nav.sidenav
+            .logo 
+                a(href='/') Csoportos Tételkezelő Rendszer
+            .version v#{VERSION}
+            ul.nav-links
+                li.nav-item
+                    a.nav-link(href='/') Főoldal
+                li.nav-item
+                    a.nav-link(href='/groups') Csoportok
+            .profile
+                img.picture.rounded-circle.mx-auto(src='images/pic' + user.pictureID + '.png' alt='profilkép')
+                ul.user-info
+                    li #{user.username} 
+                        span (#{className})
+                    li Pontok: 
+                        span #{user.points}
+                    li
+                        a(href='/my-account') Adataim | 
+                        a.toggleLogout Kijelentkezés
+        button#btnNavbarToggle.btn.btn-link >
+        .content
+            .container
+                block content
+                footer CSTK | v#{VERSION} | User ID: #{user.id} | Session ID: #{sessionID}
