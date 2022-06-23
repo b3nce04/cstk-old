@@ -1,4 +1,15 @@
-button#btnNavbarToggle.btn.btn-outline-dark <<
+// Modal
+#logoutModal.fade.modal()
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Kijelentkezés
+        button.btn-close.toggleLogout(type='button', aria-label='Bezárás')
+      .modal-body Biztos ki szeretnél jelentkezni?
+      .modal-footer
+        button.btn.btn-secondary.toggleLogout(type='button' data-bs-dismiss='modal') Nem
+        a.btn.btn-primary(type='button' href="/user/logout") Igen
+
 nav.sidenav
     .logo 
         a(href='/') Csoportos Tételkezelő Rendszer
@@ -20,9 +31,10 @@ nav.sidenav
         img.picture.rounded-circle.mx-auto(src='images/pic' + user.pictureID + '.png', alt='profilkép')
         ul.user-info
             li #{user.username} 
-                span (#{user.class})
+                span (#{className})
             li Pontok: 
                 span #{user.points}
             li
-                a(href='/account') Adataim | 
-                a(href='/user/logout') Kijelentkezés
+                a(href='/myaccount') Adataim | 
+                a.toggleLogout Kijelentkezés
+button#btnNavbarToggle.btn.btn-link >

@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
+
 import userModel from '../models/user.js'
 import codeModel from '../models/code.js'
 
@@ -8,14 +9,15 @@ const authUser = () => {
     passport.use('local-login', new LocalStrategy({
         passReqToCallback: true
     },
-    function(req, username, password, done) {
-        userModel.findOne({username: username, class: req.body.className}, async (err, user) => {
-            if (err) {return done(err)}
-            if (!user) {return done(null, false, {type: 'message', message: 'Hibás felhasználónév vagy jelszó!'})}
-            const comparePassword = await bcrypt.compare(password, user.password)
-            if (!comparePassword) {return done(null, false, {type: 'message', message: 'Hibás felhasználónév vagy jelszó!'})}
-            return done(null, user);
-        })
+    async function(req, username, password, done) {
+        const foundUser = await userModel.findOne({where: {username: username, classID: req.body.classID}})
+        if (foundUser) {
+            const comparePassword = await bcrypt.compare(password, foundUser.password)
+            if (!comparePassword) {return done(null, false, {type: 'login-message', message: 'Hibás felhasználónév vagy jelszó!'})}
+            return done(null, foundUser);
+        } else {
+            return done(null, false, {type: 'login-message', message: 'Hibás felhasználónév vagy jelszó!'})
+        }
     }))
 }
 
@@ -29,7 +31,7 @@ const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
     } else {
-        req.flash('message', 'Először be kell jelentkezned!')
+        req.flash('login-message', 'Először be kell jelentkezned!')
         res.redirect('/')
     }
 }
@@ -51,31 +53,31 @@ passport.deserializeUser((user, done) => {
 });
 
 const userRegister = async (req, res) => {
-    const {username, password1, password2, email, code, className} = req.body;
+    const {username, password1, password2, email, code, classID} = req.body;
 
     if (password1 !== password2) {
-        req.flash('message', 'A két jelszó nem egyezik!')
+        req.flash('register-message', 'A két jelszó nem egyezik!')
         res.redirect('/register')
         return
     }
 
-    const existUsername = await userModel.findOne({username: username})
+    const existUsername = await userModel.findOne({where: {username: username}})
     if (existUsername) {
-        req.flash('message', 'Ez a felhasználónév már létezik!')
+        req.flash('register-message', 'Ez a felhasználónév már létezik!')
         res.redirect('/register')
         return
     }
 
-    const existEmail = await userModel.findOne({email: email})
+    const existEmail = await userModel.findOne({where: {emailAddress: email}})
     if (existEmail) {
-        req.flash('message', 'Ez az e-mail cím már létezik!')
+        req.flash('register-message', 'Ez az e-mail cím már létezik!')
         res.redirect('/register')
         return
     }
 
-    const existCode = await codeModel.findOne({code: code})
+    const existCode = await codeModel.findOne({where: {code: code}})
     if (!existCode) {
-        req.flash('message', 'A regisztrációs kód hibás!')
+        req.flash('register-message', 'A regisztrációs kód hibás!')
         res.redirect('/register')
         return
     }
@@ -84,31 +86,27 @@ const userRegister = async (req, res) => {
     userModel.create({
         username: username,
         password: hashedPassword,
-        email: email,
-        class: className
+        emailAddress: email,
+        classID: classID
     })
     .then(() => {
-        existCode.remove()
-        req.flash('message', 'Sikeres regisztráció!')
+        existCode.destroy()
+        req.flash('login-message', 'Sikeres regisztráció!')
         res.redirect('/login')
         return
     })
 }
 
 const updateUser = async (req, res, next) => {
-    if (req.params.type === 'picture') {
-        
-    } else if (req.params.type === 'details') {
-        const {fullname} = req.body
-        console.log(req.user);
-        const user = await userModel.findOne({ _id: req.user._id })
-        const update = {name: fullname}
-        await user.updateOne(update)
-        .then(() => {
-            req.flash('message', 'Az adatok frissítése sikeres!')
-            res.redirect('/account')
-        })
-    }
+    const {fullname} = req.body
+    console.log(req.user);
+    const user = await userModel.findOne({where: { id: req.user.id }})
+    const update = {name: fullname}
+    await user.updateOne(update)
+    .then(() => {
+        req.flash('account-message2', 'Az adatok frissítése sikeres!')
+        res.redirect('/account')
+    })
 }
 
 const logoutUser = async (req, res) => {

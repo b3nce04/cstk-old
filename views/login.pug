@@ -2,25 +2,29 @@ doctype html
 html(lang='hu')
     include includes/head.pug
     body
-        .shadow.card.login-box.mt-5
-            .p-4
-                h3.fw-light Csoportos tételkezelő rendszer
-                h5.fw-bold.text-primary.text-uppercase Bejelentkezés
-                hr
-                if message.length
-                    .alert.alert-primary(role='alert') #{message}
-                form(action='/user/login' method='POST')
-                    .form-floating.mt-2
-                        input.form-control(name='username' type='username' autocomplete='on' required='' autofocus='')
-                        label Felhasználónév
-                    .form-floating.mt-2
-                        input.form-control(name='password' type='password' autocomplete='on' required='')
-                        label Jelszó
-                    .form-floating.mt-2
-                        select.form-select(name='className')
-                            option(value='9.Ny') 9.Ny
-                        label Válassz osztályt
-                    .form-group.mt-4
-                        button.btn.btn-outline-primary.w-100(type='submit') Bejelentkezés
-                    .form-group.mt-4
-                        a.btn.btn-link.w-100(href='/register') Regisztráció
+        .shadow.card.login-box
+            .row
+                .col-md-6.d-none.d-md-block.bg-login-image
+                .col-md-6
+                    .p-5
+                        h3.fw-light Csoportos tételkezelő rendszer
+                        h5.fw-bold.text-primary.text-uppercase Bejelentkezés
+                        hr
+                        if message.length
+                            .alert.alert-primary(role='alert') #{message}
+                        form(action='/user/login' method='POST')
+                            .form-floating.mt-2
+                                input.form-control(name='username' type='username' autocomplete='on' required='' autofocus='')
+                                label Felhasználónév
+                            .form-floating.mt-2
+                                input.form-control(name='password' type='password' autocomplete='on' required='')
+                                label Jelszó
+                            .form-floating.mt-2
+                                select.form-select(name='classID')
+                                    each val in classList
+                                        option(value=val.id)= val.name
+                                label Válassz osztályt
+                            .form-group.mt-4
+                                button.btn.btn-outline-primary.w-100(type='submit') Bejelentkezés
+                            .form-group.mt-4
+                                a.btn.btn-link.w-100(href='/register') Regisztráció

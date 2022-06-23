@@ -1,17 +1,21 @@
 import database from "../controllers/database.js";
 import {DataTypes} from "sequelize";
 
-const Code = database.define('Code', {
+const Class = database.define('Class', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    code: {
-        type: DataTypes.STRING
+    name: {
+        type: DataTypes.CHAR
+    },
+    headTeacher: {
+        type: DataTypes.INTEGER,
     },
 })
 
-Code.sync().then();
+Class.sync().then();
 
-export default Code;
+
+export default Class;

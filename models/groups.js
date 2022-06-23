@@ -1,17 +1,20 @@
 import database from "../controllers/database.js";
 import {DataTypes} from "sequelize";
 
-const Code = database.define('Code', {
+const Group = database.define('Group', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    code: {
+    classID: {
+        type: DataTypes.INTEGER
+    },
+    name: {
         type: DataTypes.STRING
     },
 })
 
-Code.sync().then();
+Group.sync().then();
 
-export default Code;
+export default Group;

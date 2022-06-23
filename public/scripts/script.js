@@ -6,6 +6,10 @@ $(function () {
 });
 
 $("#btnNavbarToggle").click(function () {
-    var navbar = $("nav.sidenav").toggleClass("toggled")
-    $('#btnNavbarToggle').text(navbar.css('display') === 'none' ? '>>' : '<<')
+    var navbar = $("nav.sidenav").toggleClass("showed")
+    $('#btnNavbarToggle').text(navbar.hasClass('showed') ? '<' : '>')
+});
+
+$(".toggleLogout").click(()=> {
+	$('#logoutModal').modal('toggle')
 });

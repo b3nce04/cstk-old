@@ -1,16 +1,37 @@
-import mongoose from 'mongoose'
+import database from "../controllers/database.js";
+import {DataTypes} from "sequelize";
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String,
-    class: String,
-    name: {type: String, default: 'Nincs Megadva'},
-    registered: {type: Date, default: Date.now},
-    pictureID: {type: Number, default: 0},
-    points: {type: Number, default: 0},
+const User = database.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+    username: {
+        type: DataTypes.STRING
+    },
+    password: {
+        type: DataTypes.STRING
+    },
+    emailAddress: {
+        type: DataTypes.STRING
+    },
+    classID: {
+        type: DataTypes.INTEGER
+    },
+    registrationDate: {
+        type: DataTypes.DATE
+    },
+    isTeacher: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    points: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
 })
 
-const User = mongoose.model('User', userSchema)
+User.sync().then();
 
-export default User
+export default User;
