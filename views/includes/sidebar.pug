@@ -1,15 +1,8 @@
-// Modal
-#logoutModal.fade.modal()
-  .modal-dialog
-    .modal-content
-      .modal-header
-        h5.modal-title Kijelentkezés
-        button.btn-close.toggleLogout(type='button', aria-label='Bezárás')
-      .modal-body Biztos ki szeretnél jelentkezni?
-      .modal-footer
-        button.btn.btn-secondary.toggleLogout(type='button' data-bs-dismiss='modal') Nem
-        a.btn.btn-primary(type='button' href="/user/logout") Igen
-
+include ../mixins/modal.pug
++modal('logoutModal', 'Kijelentkezés', 'Biztos ki szeretnél jelentkezni?', 
+    {name: "toggleLogout", text: "Nem"},
+    {href: "/user/logout", text: "Igen"}
+)
 nav.sidenav
     .logo 
         a(href='/') Csoportos Tételkezelő Rendszer

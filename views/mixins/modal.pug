@@ -1,0 +1,11 @@
+mixin modal(id, title, body, closeButton, doButton)
+    .fade.modal(id=id)
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title= title
+                    button.btn-close(class=closeButton.name, type='button', aria-label='Bezárás')
+                .modal-body #{body}
+                .modal-footer
+                    button.btn.btn-secondary(class=closeButton.name, type='button') #{closeButton.text}
+                    a.btn.btn-primary(type='button' href=doButton.href) #{doButton.text}

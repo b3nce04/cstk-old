@@ -1,0 +1,10 @@
+Routes
+/
+/login
+/register
+
+POST & GET requests
+/user/login
+/user/register
+/user/update/details
+/user/logout

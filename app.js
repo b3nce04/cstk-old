@@ -47,9 +47,9 @@ app.use(flash());
 
 authUser();
 
+// Routes
 app.use("/user", userRoutes);
 
-// Root
 app.get("/", (req, res) => {
 	if (req.isAuthenticated()) {
 		res.redirect("/main");
@@ -58,7 +58,6 @@ app.get("/", (req, res) => {
 	}
 });
 
-// EJS
 app.use(async (req, res, next) => {
 	res.locals.VERSION = process.env.npm_package_version;
 	res.locals.classList = ServerCache.get("classList");

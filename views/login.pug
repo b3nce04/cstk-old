@@ -12,19 +12,19 @@ html(lang='hu')
                         hr
                         if message.length
                             .alert.alert-primary(role='alert') #{message}
-                        form(action='/user/login' method='POST')
+                        form
                             .form-floating.mt-2
-                                input.form-control(name='username' type='username' autocomplete='on' required='' autofocus='')
+                                input.form-control(id='username' type='username' autocomplete='on' required='' autofocus='')
                                 label Felhasználónév
                             .form-floating.mt-2
-                                input.form-control(name='password' type='password' autocomplete='on' required='')
+                                input.form-control(id='password' type='password' autocomplete='on' required='')
                                 label Jelszó
                             .form-floating.mt-2
-                                select.form-select(name='classID')
+                                select.form-select(id='classID')
                                     each val in classList
                                         option(value=val.id)= val.name
                                 label Válassz osztályt
                             .form-group.mt-4
-                                button.btn.btn-outline-primary.w-100(type='submit') Bejelentkezés
+                                button.btn.btn-outline-primary.w-100(type='button' id="loginButton") Bejelentkezés
                             .form-group.mt-4
                                 a.btn.btn-link.w-100(href='/register') Regisztráció
