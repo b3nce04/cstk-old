@@ -21,23 +21,27 @@ html(lang='hu')
                 li.nav-item
                     a.nav-link(href='') Vizsgák
                 li.nav-item
+                    a.nav-link(href='') Vizsgáim
+                li.nav-item
                     a.nav-link(href='') Moderátori felület
             .profile
-                img.picture.rounded-circle.mx-auto(src='images/pic' + user.pictureID + '.png' alt='profilkép')
+                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép')
                 ul.user-info
                     li #{user.username} 
-                        span (#{className})
+                        span (#{userClass.name})
                     li Pontok: 
                         span #{user.points}
                     li
-                        a(href='/my-account') Adataim | 
+                        a(href='/account') Adataim | 
                         a.toggleLogout Kijelentkezés
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container
                 each val in globalMessages
-                    .alert.alert-primary
+                    .alert.alert-light
                         i.bi.bi-exclamation-diamond-fill 
                         | #{val.text}
+                if message.length
+                    .alert.alert-danger #{message}
                 block content
                 footer CSTK | v#{VERSION} | User ID: #{user.id} | Session ID: #{sessionID}

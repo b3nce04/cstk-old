@@ -32,6 +32,10 @@ const User = database.define('User', {
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
+    suspended: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
 })
 
 User.sync().then();

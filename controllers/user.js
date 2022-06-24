@@ -15,6 +15,9 @@ const authUser = () => {
         if (foundUser) {
             const comparePassword = await bcrypt.compare(password, foundUser.password)
             if (!comparePassword) {return done(null, false, {type: 'login-message', message: 'Hibás felhasználónév vagy jelszó!'})}
+            if (foundUser.suspended) {
+                return done(null, false, {type: 'login-message', message: 'A fiókod zárolva van! Vedd fel a kapcsolatot az osztályadminnal!'})
+            }
             return done(null, foundUser);
         } else {
             return done(null, false, {type: 'login-message', message: 'Hibás felhasználónév vagy jelszó!'})
@@ -98,18 +101,6 @@ const userRegister = async (req, res) => {
     })
 }
 
-const updateUser = async (req, res, next) => {
-    const {fullname} = req.body
-    console.log(req.user);
-    const user = await userModel.findOne({where: { id: req.user.id }})
-    const update = {name: fullname}
-    await user.updateOne(update)
-    .then(() => {
-        req.flash('account-message2', 'Az adatok frissítése sikeres!')
-        res.redirect('/account')
-    })
-}
-
 const logoutUser = async (req, res) => {
     req.session.destroy()
     req.logout()
@@ -121,4 +112,4 @@ const countClassMembersByClassID = async (id) => {
     return count;
 }
 
-export {userLogin, userRegister, updateUser, logoutUser, authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID}
+export {userLogin, userRegister, logoutUser, authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID}

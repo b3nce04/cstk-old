@@ -1,6 +1,6 @@
 $(function () {
-	var path = window.location.pathname;
-	$('.nav-links li a[href="' + path + '"]')
+	var path = window.location.pathname.split('/')[1];
+	$('.nav-links li a[href="/' + path + '"]')
 		.parents("li")
 		.addClass("active");
 });
@@ -14,10 +14,6 @@ $(".toggleLogout").click(() => {
 	$("#logoutModal").modal("toggle");
 });
 
-$(".moderatorMessage").click(() => {
-	$(".moderatorMessage").hide();
-});
-
-$(".personalMessage").click(() => {
-	$(".personalMessage").hide();
+$("#adminMessage").click(() => {
+	$("#adminMessage").hide();
 });

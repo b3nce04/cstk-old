@@ -10,8 +10,9 @@ const Class = database.define('Class', {
     name: {
         type: DataTypes.CHAR
     },
-    moderatorID: {
-        type: DataTypes.INTEGER
+    adminID: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
     headTeacherName: {
         type: DataTypes.STRING,
@@ -19,6 +20,5 @@ const Class = database.define('Class', {
 })
 
 Class.sync().then();
-
 
 export default Class;

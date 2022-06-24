@@ -14,7 +14,8 @@ const Group = database.define('Group', {
         type: DataTypes.STRING
     },
     isOpen: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 })
 

@@ -1,6 +1,8 @@
 Routes
 / -> app
     /groups
+        ?id=
+        /create
 /login -> panel
 /register -> panel
 

@@ -1,18 +1,22 @@
-import classModel from '../models/class.js'
+import classModel from "../models/class.js";
 
 const getClassList = async () => {
-    const list = await classModel.findAll()
-    return list
-}
+	const list = await classModel.findAll();
+	return JSON.stringify(list);
+};
 
-const getClassNameById = async (id) => {
-    const classObject = await classModel.findOne({where: {id: id}})
-    return classObject.name
-}
+const getClassById = (list, id) => {
+	return list.find((element) => element.id === id);
+};
 
-const isModerator = async (classid, userid) => {
-    const classObject = await classModel.findOne({where: {id: classid}})
-    return classObject.moderatorID === userid;
-}
+const isAdmin = (list, classid, userid) => {
+	const classObject = getClassById(list, classid);
+	if (classObject) {
+		if (classObject.adminID == userid) {
+			return true;
+		}
+	}
+	return false;
+};
 
-export {getClassList, getClassNameById, isModerator}
+export { getClassList, getClassById, isAdmin };

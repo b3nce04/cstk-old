@@ -1,14 +1,16 @@
 extends ../mainLayout.pug
 
 block content
-    .page-title Fiókom
+    .page-title Adataim
     .row
         .col-xl-4.mb-3
             .card
                 .card-header Profilkép
                 .card-body
-                    if pictureMessage.length
-                        .alert.alert-primary(role='alert') #{pictureMessage}
+                    div
+                        label(for="exampleColorInput", class="form-label") Színbeállítás
+                        input(type="color",class="form-control form-control-color",id="exampleColorInput",value="#ffffff",title="Choose your color")
+
                     img.rounded(src='images/pic' + user.pictureID + '.png' alt='profilkép')
                     form(action='/user/update/picture' method='POST' enctype='multipart/form-data')
                         label.form-label(for='formFile') JPG vagy PNG, kisebb mint 5 MB
@@ -16,23 +18,25 @@ block content
                         button.btn.btn-primary(type='submit') Kép feltöltése
         .col-xl-8.mb-3
             .card
-                .card-header Adatok
+                .card-header Személyes adatok
                 .card-body
-                    if detailsMessage.length
-                        .alert.alert-primary(role='alert') #{detailsMessage}
                     p
                         | Teljes név: 
-                        | #{user.fullName}
+                        b #{user.fullName || 'Nincs megadva'}
                     p
                         | E-mail cím: 
-                        | #{user.emailAddress}
-                    p Regisztráltál: #{user.registrationDate}
-                    label(for="birthday") Születésnap:
-                    input(type="date",id="birthday",name="birthday",value="2000-00-00")
+                        b #{user.emailAddress}
+                    p
+                        | Születési dátum: 
+                        b #{user.birthDate || 'Nincs megadva'}
+                    p
+                        | Regisztráltál
+                        b #{user.registrationDate}
     .row
         .col-12
             .card
-                .card-header Adatok
+                .card-header Iskola adatai
                 .card-body
                     p Iskolád: nincs
-                    p Osztályfőnököd: Kubik József
+                    p Osztályfőnököd: 
+                        b #{userClass.headTeacherName}

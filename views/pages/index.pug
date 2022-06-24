@@ -2,11 +2,14 @@ extends ../mainLayout.pug
 
 block content
     .page-title Főoldal
-    .alert.alert-danger Nincs beállítva a neved! Kérd meg a csoport egyik adminisztrátorát, hogy tegye meg!
     each val in classMessages
-        .alert.alert-secondary.moderatorMessage
+        .alert.alert-warning.pointer#adminMessage
             i.bi-info-lg
             | #{val.text}
+    each val in userMessages
+        .alert.alert-primary
+            i.bi-info-lg
+            | #{val}
     .row
         .col-md-3.mb-3
             .card.border-0.border-end.border-primary.border-3.shadow.py-2

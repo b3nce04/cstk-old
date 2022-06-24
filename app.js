@@ -6,10 +6,11 @@ import passport from "passport";
 import NodeCache from "node-cache";
 
 import database from "./controllers/database.js";
-import { authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID } from "./controllers/user.js";
-import { getClassList, getClassNameById } from "./controllers/class.js";
+import { isLoggedIn, authUser } from "./controllers/user.js";
+import { getClassList, getClassById, isAdmin } from "./controllers/class.js";
 import { getMessages } from "./controllers/messages.js";
 
+import mainRoutes from "./routes/main.js";
 import userRoutes from "./routes/user.js";
 import groupsRoutes from "./routes/groups.js";
 
@@ -20,18 +21,18 @@ const ServerCache = new NodeCache({ stdTTL: 0, checkperiod: 0 });
 await database
 	.authenticate()
 	.then(() => {
-		app.listen(PORT, () => {
+		app.listen(PORT, async () => {
 			console.log(
 				`Az alkalmazás elindult, elérhető itt: http://localhost:${PORT}`
 			);
+			// Setup server cache
+			ServerCache.set("classList", JSON.parse(await getClassList()));
+			ServerCache.set("globalMessages", JSON.parse(await getMessages(0)));
 		});
 	})
 	.catch((err) => {
 		console.log(`Hiba történt: ${err}`);
 	});
-
-ServerCache.set("classList", await getClassList());
-ServerCache.set("globalMessages", await getMessages(0));
 
 app.set("view engine", "pug");
 app.set("views", "views");
@@ -50,50 +51,28 @@ app.use(flash());
 
 authUser();
 
-//// Before login ////
+// POST & GET requests
 app.use("/user", userRoutes);
 
-// Middlewares
-app.use(async (req, res, next) => {
+// Middleware for all
+app.use((req, res, next) => {
+	const classList = ServerCache.get("classList");
 	res.locals.VERSION = process.env.npm_package_version;
-	res.locals.classList = ServerCache.get("classList");
+	res.locals.classList = classList;
+	if (req.isAuthenticated()) {
+		const user = req.user
+		res.locals.user = user
+		res.locals.message = req.flash('message') // Itt üzenünk a felhasználónak
+		res.locals.isAdmin = isAdmin(classList, user.classID, user.id)
+		res.locals.sessionID = req.sessionID
+		res.locals.userClass = getClassById(classList, user.classID)
+		res.locals.globalMessages = ServerCache.get("globalMessages")
+	}
 	next();
 });
 
-app.get("/login", isNotLoggedIn, (req, res) => {
-	res.render("login", { message: req.flash("login-message") });
-});
-
-app.get("/register", isNotLoggedIn, (req, res) => {
-	res.render("register", { message: req.flash("register-message") });
-});
-
-app.use(isLoggedIn, async (req, res, next) => {
-	res.locals.user = req.user,
-	res.locals.sessionID = req.sessionID,
-	res.locals.className = await getClassNameById(req.user.classID),
-	res.locals.globalMessages = ServerCache.get("globalMessages"),
-	next();
-});
-
-//// After login ////
+// Routes
+app.use("/", mainRoutes);
 app.use("/groups", isLoggedIn, groupsRoutes);
 
-app.get('/', isLoggedIn, async (req, res) => {
-	res.render('pages/index', {
-		classMembers: await countClassMembersByClassID(req.user.classID),
-		classMessages: await getMessages(req.user.classID),
-	});
-})
-
-app.get("/my-account", isLoggedIn, (req, res) => {
-	res.render("pages/account", {
-		pictureMessage: req.flash("account-message1"),
-		detailsMessage: req.flash("account-message2"),
-	});
-});
-
 // Error page
-app.use((req, res, next) => {
-	res.render("404");
-});
