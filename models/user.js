@@ -22,6 +22,10 @@ const User = database.define('User', {
     birthDate: {
         type: DataTypes.DATE
     },
+    color: {
+        type: DataTypes.STRING,
+        defaultValue: '#FFFFFF'
+    },
     classID: {
         type: DataTypes.INTEGER
     },
@@ -35,6 +39,9 @@ const User = database.define('User', {
     suspended: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    ipAddress: {
+        type: DataTypes.STRING
     },
 })
 

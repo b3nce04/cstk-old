@@ -1,7 +1,9 @@
 extends ../../mainLayout.pug
 
+block pageHeader
+    .page-title-breadcrumb ##{group.id} csoport
+
 block content
-    .page-title-breadcrumb Csoport: #{group.name}
     nav(aria-label='breadcrumb')
         ol.breadcrumb
             li.breadcrumb-item

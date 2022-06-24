@@ -10,8 +10,8 @@ import { isLoggedIn, authUser } from "./controllers/user.js";
 import { getClassList, getClassById, isAdmin } from "./controllers/class.js";
 import { getMessages } from "./controllers/messages.js";
 
+import requestRoutes from "./routes/api-requests.js";
 import mainRoutes from "./routes/main.js";
-import userRoutes from "./routes/user.js";
 import groupsRoutes from "./routes/groups.js";
 
 const app = express();
@@ -52,7 +52,7 @@ app.use(flash());
 authUser();
 
 // POST & GET requests
-app.use("/user", userRoutes);
+app.use("/api", requestRoutes);
 
 // Middleware for all
 app.use((req, res, next) => {
@@ -63,16 +63,28 @@ app.use((req, res, next) => {
 		const user = req.user
 		res.locals.user = user
 		res.locals.message = req.flash('message') // Itt üzenünk a felhasználónak
-		res.locals.isAdmin = isAdmin(classList, user.classID, user.id)
 		res.locals.sessionID = req.sessionID
 		res.locals.userClass = getClassById(classList, user.classID)
+		res.locals.isAdmin = isAdmin(res.locals.userClass, user.id)
 		res.locals.globalMessages = ServerCache.get("globalMessages")
 	}
 	next();
 });
 
+app.use((req, res, next) => {
+	console.log('-------------');
+	console.log(res.locals);
+	console.log('-------------');
+	next()
+})
+
 // Routes
 app.use("/", mainRoutes);
 app.use("/groups", isLoggedIn, groupsRoutes);
 
+app.use("/admin", isLoggedIn, isAdmin, groupsRoutes);
+
 // Error page
+app.use((req, res, next) => {
+	res.render("404");
+});

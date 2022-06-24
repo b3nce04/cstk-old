@@ -1,12 +1,22 @@
 extends ../../mainLayout.pug
 
-block content
+block pageHeader
     .page-title-breadcrumb Új csoport létrehozása
     nav(aria-label='breadcrumb')
         ol.breadcrumb
             li.breadcrumb-item
                 a(href='/groups') Csoportok
             li.breadcrumb-item.active(aria-current='page') Létrehozás
+
+block content
     .row
-        p asd
-        p asd
+        form(method='POST', action='/api/group/create')
+            .mb-3
+                label.form-label(for='exampleFormControlInput1') Név
+                input#exampleFormControlInput1.form-control(type='text' name='name')
+            .form-check.mb-3
+                input#flexCheckDefault.form-check-input(type='checkbox' name='isOpen' checked)
+                label.form-check-label(for='flexCheckDefault')
+                    | Nyitott
+            button.btn.btn-primary.btn-lg Létrehozás
+

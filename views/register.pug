@@ -9,7 +9,7 @@ html(lang='hu')
                 hr
                 if message.length
                     .alert.alert-primary.message(role='alert') #{message}
-                form(action='/user/register' method='POST')
+                form(action='/api/register' method='POST')
                     .form-floating.mt-2
                         input.form-control(type='text' name='username' autocomplete='off' required='' placeholder=' ')
                         label Felhasználónév

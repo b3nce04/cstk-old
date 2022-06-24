@@ -6,6 +6,8 @@ import database from './database.js'
 import userModel from '../models/user.js'
 import codeModel from '../models/code.js'
 
+import {isAdmin} from '../controllers/class.js'
+
 const authUser = () => {
     passport.use('local-login', new LocalStrategy({
         passReqToCallback: true
@@ -112,4 +114,14 @@ const countClassMembersByClassID = async (id) => {
     return count;
 }
 
-export {userLogin, userRegister, logoutUser, authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID}
+const isUserAdmin = (req, res, next) => {
+    console.log(req.user.userClass);
+    if (isAdmin(req.user.userClass, req.user.id)) {
+        next()
+    } else {
+        req.flash('message', 'Erre nincs jogosultságod!')
+        res.redirect('/')
+    }
+}
+
+export {userLogin, userRegister, logoutUser, authUser, isLoggedIn, isNotLoggedIn, countClassMembersByClassID, isUserAdmin}

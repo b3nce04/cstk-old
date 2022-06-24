@@ -5,7 +5,7 @@ html(lang='hu')
         include mixins/modal.pug
         +modal('logoutModal', 'Kijelentkezés', 'Biztos ki szeretnél jelentkezni?', 
             {name: "toggleLogout", text: "Nem"},
-            {href: "/user/logout", text: "Igen"}
+            {href: "/api/logout", text: "Igen"}
         )
         nav.sidenav
             .logo 
@@ -22,10 +22,11 @@ html(lang='hu')
                     a.nav-link(href='') Vizsgák
                 li.nav-item
                     a.nav-link(href='') Vizsgáim
-                li.nav-item
-                    a.nav-link(href='') Moderátori felület
+                if isAdmin
+                    li.nav-item
+                        a.nav-link(href='') Moderátori felület
             .profile
-                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép')
+                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép' style=`border-color: ${user.color}`)
                 ul.user-info
                     li #{user.username} 
                         span (#{userClass.name})
@@ -41,7 +42,8 @@ html(lang='hu')
                     .alert.alert-light
                         i.bi.bi-exclamation-diamond-fill 
                         | #{val.text}
+                block pageHeader
                 if message.length
-                    .alert.alert-danger #{message}
+                    .alert.alert-info #{message}
                 block content
                 footer CSTK | v#{VERSION} | User ID: #{user.id} | Session ID: #{sessionID}

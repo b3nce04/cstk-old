@@ -1,15 +1,17 @@
 extends ../mainLayout.pug
 
-block content
+block pageHeader
     .page-title Adataim
+
+block content
     .row
         .col-xl-4.mb-3
             .card
                 .card-header Profilkép
                 .card-body
                     div
-                        label(for="exampleColorInput", class="form-label") Színbeállítás
-                        input(type="color",class="form-control form-control-color",id="exampleColorInput",value="#ffffff",title="Choose your color")
+                        label(for="exampleColorInput" class="form-label") Színbeállítás
+                        input(type="color" class="form-control form-control-color" id="exampleColorInput" value=user.color title="Choose your color")
 
                     img.rounded(src='images/pic' + user.pictureID + '.png' alt='profilkép')
                     form(action='/user/update/picture' method='POST' enctype='multipart/form-data')
@@ -30,7 +32,7 @@ block content
                         | Születési dátum: 
                         b #{user.birthDate || 'Nincs megadva'}
                     p
-                        | Regisztráltál
+                        | Regisztráltál: 
                         b #{user.registrationDate}
     .row
         .col-12

@@ -1,7 +1,9 @@
 extends ../mainLayout.pug
 
-block content
+block pageHeader
     .page-title Főoldal
+
+block content
     each val in classMessages
         .alert.alert-warning.pointer#adminMessage
             i.bi-info-lg

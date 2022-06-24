@@ -7,7 +7,7 @@ Routes
 /register -> panel
 
 POST & GET requests
-/user/login
-/user/register
-/user/update/details
-/user/logout
+/api/login
+/api/register
+/api/update/details
+/api/logout

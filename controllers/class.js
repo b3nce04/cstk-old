@@ -9,8 +9,7 @@ const getClassById = (list, id) => {
 	return list.find((element) => element.id === id);
 };
 
-const isAdmin = (list, classid, userid) => {
-	const classObject = getClassById(list, classid);
+const isAdmin = (classObject, userid) => {
 	if (classObject) {
 		if (classObject.adminID == userid) {
 			return true;

@@ -1,7 +1,9 @@
 extends ../../mainLayout.pug
 
-block content
+block pageHeader 
     .page-title Csoportok
+
+block content
     .row
         each val in groupList
             .col-md-3.mb-3
@@ -9,11 +11,10 @@ block content
                     .card-body
                         b= val.name
                         br
-                        span Állapot: 
-                            if val.isOpen 
-                                b.text-primary Nyitva
-                            else
-                                b.text-danger Zárva
+                        if val.isOpen 
+                            b.text-primary Nyitott
+                        else
+                            b.text-danger Zárt
                         .py-2
                             a.btn.btn-link.stretched-link(href=`/groups?id=${val.id}`) Belépés
         if isAdmin
