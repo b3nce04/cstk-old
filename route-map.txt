@@ -3,11 +3,21 @@ Routes
     /groups
         ?id=
         /create
+    /materials
+    /exams
+    /my-exams
+    /admin
+    /account
 /login -> panel
 /register -> panel
 
 POST & GET requests
 /api/login
 /api/register
+/api/update/color
 /api/update/details
 /api/logout
+
+/api/group/create
+/api/group/sendMessage:id
+/api/group/changeState:id

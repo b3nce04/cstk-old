@@ -3,30 +3,30 @@ import express from 'express'
 const router = express.Router()
 
 import { isLoggedIn, isNotLoggedIn, countClassMembersByClassID } from "../controllers/user.js";
-import { getMessages } from "../controllers/messages.js";
+import { getInformations } from "../controllers/informations.js";
 
 router.get('/', isLoggedIn, async (req, res, next) => {
 	const user = req.user
-	const userMessages = []
+	const userInformations = []
 	if (!user.fullName) {
-		userMessages.push("Nincs megadva a teljes neved. Kérd meg az osztályadmint, hogy tegye ezt meg!")
+		userInformations.push("Nincs megadva a teljes neved. Kérd meg az osztályadmint, hogy tegye ezt meg!")
 	}
 	if (!user.birthDate) {
-		userMessages.push("Nincs megadva a születési dátumod. Kérd meg az osztályadmint, hogy tegye ezt meg!")
+		userInformations.push("Nincs megadva a születési dátumod. Kérd meg az osztályadmint, hogy tegye ezt meg!")
 	}
 	res.render('pages/index', {
 		classMembers: await countClassMembersByClassID(user.classID),
-		classMessages: JSON.parse(await getMessages(user.classID)),
-		userMessages: userMessages
+		classInformations: JSON.parse(await getInformations(user.classID)),
+		userInformations: userInformations
 	});
 })
 
 router.get("/login", isNotLoggedIn, (req, res) => {
-	res.render("login", { message: req.flash("login-message") });
+	res.render("login");
 });
 
 router.get("/register", isNotLoggedIn, (req, res) => {
-	res.render("register", { message: req.flash("register-message") });
+	res.render("register");
 });
 
 router.get("/account", isLoggedIn, (req, res) => {

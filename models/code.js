@@ -12,6 +12,6 @@ const Code = database.define('Code', {
     },
 })
 
-Code.sync().then();
+Code.sync()
 
 export default Code;

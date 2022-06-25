@@ -1,5 +1,7 @@
 import groupModel from '../models/group.js'
 
+import {getMessagesByGroupID, insertMessage} from './message.js'
+
 const getAllGroupsByClassID = async (id) => {
     const list = await groupModel.findAll({where: {classID: id}})
     return JSON.stringify(list)
@@ -22,4 +24,25 @@ const createGroup = async (req, res, next) => {
     }
 }
 
-export {getAllGroupsByClassID, getGroupById, createGroup}
+const changeState = async (req, res, next) => {
+    const searched = await groupModel.findOne({where: {id: req.params.id}})
+    if (searched) {
+        const update = await groupModel.update({isOpen: !searched.isOpen}, {where: {id: req.params.id}});
+        if (update) {
+            req.flash('message', 'Sikeresen megváltoztattad a csoport állapotát!')
+            res.redirect(`/groups`)
+        }
+    }
+}
+
+const getGroupMessagesByID = async (id) => {
+    const conversationList = JSON.parse(await getMessagesByGroupID(id))
+    return conversationList
+}
+
+const sendMessage = async (req, res, next) => {
+    const newMessage = await insertMessage(req.user.id, req.params.id, req.body.message)
+    res.redirect(`/groups?id=${req.params.id}`)
+}
+
+export {getAllGroupsByClassID, getGroupById, createGroup, changeState, sendMessage, getGroupMessagesByID}

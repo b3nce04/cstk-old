@@ -8,7 +8,7 @@ const Class = database.define('Class', {
         primaryKey: true,
     },
     name: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     adminID: {
         type: DataTypes.INTEGER,
@@ -19,6 +19,6 @@ const Class = database.define('Class', {
     },
 })
 
-Class.sync().then();
+Class.sync()
 
 export default Class;

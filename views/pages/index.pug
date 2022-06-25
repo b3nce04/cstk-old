@@ -4,11 +4,11 @@ block pageHeader
     .page-title Főoldal
 
 block content
-    each val in classMessages
+    each val in classInformations
         .alert.alert-warning.pointer#adminMessage
             i.bi-info-lg
             | #{val.text}
-    each val in userMessages
+    each val in userInformations
         .alert.alert-primary
             i.bi-info-lg
             | #{val}

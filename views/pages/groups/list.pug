@@ -7,18 +7,24 @@ block content
     .row
         each val in groupList
             .col-md-3.mb-3
-                .card.shadow
+                .card.shadow.pointer
                     .card-body
                         b= val.name
                         br
                         if val.isOpen 
-                            b.text-primary Nyitott
+                            b.text-primary Nyitott 
                         else
-                            b.text-danger Zárt
+                            b.text-danger Zárt 
+                        if user.isAdmin
+                            a(href=`/api/group/changeState/${val.id}`) Változtat
                         .py-2
-                            a.btn.btn-link.stretched-link(href=`/groups?id=${val.id}`) Belépés
-        if isAdmin
+                            a.btn.btn-link(href=`/groups?id=${val.id}`) Belépés
+        if user.isAdmin
             .col-md-3.mb-3
                 .card.shadow
                     .card-body
                         a.h5.text-uppercase.mb-0(href='/groups/create') Új csoport lérehozása
+        else 
+            if groupList.length == 0
+                h4.text-primary Nincs létrehozva csoport! 
+                p A csoportok létrehozása az osztályadminok feladata.

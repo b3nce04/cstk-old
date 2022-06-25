@@ -10,5 +10,13 @@ block content
                 a(href='/groups') Csoportok
             li.breadcrumb-item.active(aria-current='page') #{group.name}
     .row
-        p id: 
-            #{group.name}
+        .container
+            each val in messages
+                p #{val.id}: 
+                    | #{val.text}
+        form(method='POST', action=`/api/group/sendMessage/${group.id}`)
+            .row.g-3.align-items-center
+                .col-11 
+                    input.form-control(name='message' type='text' placeholder='Üzenet' required='')
+                .col-1
+                    button.btn.btn-outline-primary Elküldés

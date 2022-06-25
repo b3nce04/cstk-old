@@ -17,19 +17,19 @@ html(lang='hu')
                 li.nav-item
                     a.nav-link(href='/groups') Csoportok
                 li.nav-item
-                    a.nav-link(href='') Tételek
+                    a.nav-link(href='/materials') Tételek
                 li.nav-item
-                    a.nav-link(href='') Vizsgák
+                    a.nav-link(href='/exams') Vizsgák
                 li.nav-item
-                    a.nav-link(href='') Vizsgáim
-                if isAdmin
+                    a.nav-link(href='/my-exams') Vizsgáim
+                if user.isAdmin
                     li.nav-item
-                        a.nav-link(href='') Moderátori felület
+                        a.nav-link(href='/admin') Moderátori felület
             .profile
-                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép' style=`border-color: ${user.color}`)
+                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép' style=`border-width: 5px; border-color: ${user.color}`)
                 ul.user-info
                     li #{user.username} 
-                        span (#{userClass.name})
+                        span (#{user.class.name})
                     li Pontok: 
                         span #{user.points}
                     li
@@ -38,12 +38,12 @@ html(lang='hu')
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container
-                each val in globalMessages
+                each val in globalInformations
                     .alert.alert-light
                         i.bi.bi-exclamation-diamond-fill 
-                        | #{val.text}
+                        | #{val}
                 block pageHeader
                 if message.length
-                    .alert.alert-info #{message}
+                    .alert.alert-dark #{message}
                 block content
                 footer CSTK | v#{VERSION} | User ID: #{user.id} | Session ID: #{sessionID}

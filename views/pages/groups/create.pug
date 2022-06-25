@@ -10,9 +10,9 @@ block pageHeader
 
 block content
     .row
-        form(method='POST', action='/api/group/create')
-            .mb-3
-                label.form-label(for='exampleFormControlInput1') Név
+        form.p-2(method='POST', action='/api/group/create')
+            label.form-label(for='exampleFormControlInput1') Név
+            .input-group.mb-3
                 input#exampleFormControlInput1.form-control(type='text' name='name')
             .form-check.mb-3
                 input#flexCheckDefault.form-check-input(type='checkbox' name='isOpen' checked)

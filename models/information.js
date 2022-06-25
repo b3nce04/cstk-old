@@ -3,25 +3,21 @@ import {DataTypes} from "sequelize";
 
 import Class from './class.js'
 
-const Group = database.define('Group', {
+const Information = database.define('informations', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    name: {
-        type: DataTypes.STRING
+    text: {
+        type: DataTypes.TEXT
     },
-    isOpen: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true
-    }
 })
 
-Group.belongsTo(Class, {
+Information.belongsTo(Class, {
     foreignKey: 'classID'
 })
 
-Group.sync()
+Information.sync()
 
-export default Group;
+export default Information;

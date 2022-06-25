@@ -9,15 +9,15 @@ block content
             .card
                 .card-header Profilkép
                 .card-body
-                    div
-                        label(for="exampleColorInput" class="form-label") Színbeállítás
-                        input(type="color" class="form-control form-control-color" id="exampleColorInput" value=user.color title="Choose your color")
-
-                    img.rounded(src='images/pic' + user.pictureID + '.png' alt='profilkép')
-                    form(action='/user/update/picture' method='POST' enctype='multipart/form-data')
+                    img.rounded(src='images/pic0.png' alt='profilkép')
+                    form(action='/api/update/picture' method='POST' enctype='multipart/form-data')
                         label.form-label(for='formFile') JPG vagy PNG, kisebb mint 5 MB
                         input.form-control(type="file" id='formFile' name='picture')
                         button.btn.btn-primary(type='submit') Kép feltöltése
+                    form(action='/api/update/color' method='POST')
+                        label(for="exampleColorInput" class="form-label") Színbeállítás
+                        input(type="color" class="form-control form-control-color" name="color" value=user.color title="Válassz színt")
+                        button.btn.btn-primary(type='submit') Beállítás
         .col-xl-8.mb-3
             .card
                 .card-header Személyes adatok
@@ -41,4 +41,4 @@ block content
                 .card-body
                     p Iskolád: nincs
                     p Osztályfőnököd: 
-                        b #{userClass.headTeacherName}
+                        b #{user.class.headTeacherName}
