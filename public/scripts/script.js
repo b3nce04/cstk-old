@@ -3,6 +3,11 @@ $(function () {
 	$('.nav-links li a[href="/' + path + '"]')
 		.parents("li")
 		.addClass("active");
+
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
 });
 
 $("#btnNavbarToggle").click(function () {

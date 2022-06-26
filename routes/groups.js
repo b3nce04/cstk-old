@@ -6,7 +6,7 @@ import {
 	getGroupMessagesByID,
 } from "../controllers/group.js";
 
-import { isUserAdmin } from "../controllers/user.js";
+import { isUserAdmin, getUserByID } from "../controllers/user.js";
 
 const router = express.Router();
 

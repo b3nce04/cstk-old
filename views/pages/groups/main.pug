@@ -2,21 +2,36 @@ extends ../../mainLayout.pug
 
 block pageHeader
     .page-title-breadcrumb ##{group.id} csoport
-
-block content
     nav(aria-label='breadcrumb')
         ol.breadcrumb
             li.breadcrumb-item
                 a(href='/groups') Csoportok
             li.breadcrumb-item.active(aria-current='page') #{group.name}
+
+block content
     .row
         .container
-            each val in messages
-                p #{val.id}: 
-                    | #{val.text}
-        form(method='POST', action=`/api/group/sendMessage/${group.id}`)
-            .row.g-3.align-items-center
-                .col-11 
-                    input.form-control(name='message' type='text' placeholder='Üzenet' required='')
-                .col-1
-                    button.btn.btn-outline-primary Elküldés
+            if messages.length == 0
+                h4.text-primary Ebbe a csoportba még senki sem írt. 
+                p Légy te az első!
+            else
+                #groupMessages
+                    each val in messages
+                        .col.bg-white.mb-2.p-2.border.groupMessage(style=`border-left: 5px solid ${val.senderColor}!important`)
+                            span(data-bs-toggle="tooltip" data-bs-placement="top" title=val.fullName) #{val.senderName}: 
+                                | #{val.text}
+            if group.isOpen
+                form(method='POST', action=`/api/group/sendMessage/${group.id}`)
+                    .row.g-3.align-items-center
+                        .col
+                            input.form-control(name='message' type='text' placeholder='Üzenet' required='')
+                        .col-auto
+                            button.btn.btn-primary 
+                                i.bi.bi-send-fill
+            else
+                .row.g-3.align-items-center
+                    .col
+                        input.form-control(name='message' type='text' placeholder='A csoport zárt, így üzenetet már nem küldhetsz!' disabled='')
+                    .col-auto
+                        button(disabled='').btn.btn-primary
+                            i.bi.bi-send-fill
