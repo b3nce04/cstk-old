@@ -1,8 +1,14 @@
 extends ../../mainLayout.pug
 
 block pageHeader
-    .page-title-breadcrumb ##{group.id} csoport
-    nav(aria-label='breadcrumb')
+    .page-title-breadcrumb ##{group.id} csoport 
+        if group.isOpen 
+            span.badge.rounded-pill.bg-primary
+                span Nyitott 
+        else
+            span.badge.rounded-pill.bg-danger
+                span Zárt 
+    nav
         ol.breadcrumb
             li.breadcrumb-item
                 a(href='/groups') Csoportok

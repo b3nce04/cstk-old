@@ -21,6 +21,7 @@ const createGroup = async (req, res, next) => {
 			"A névnek legalább 3 karakter hosszúnak kell lennie."
 		);
 		res.redirect("/groups/create");
+		return;
 	}
 	const newGroup = await groupModel.create({
 		classID: req.user.classID,

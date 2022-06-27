@@ -38,10 +38,6 @@ html(lang='hu')
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container
-                each val in globalInformations
-                    .alert.alert-light
-                        i.bi.bi-exclamation-diamond-fill 
-                        | #{val}
                 block pageHeader
                 if message.length
                     .alert.alert-dark #{message}

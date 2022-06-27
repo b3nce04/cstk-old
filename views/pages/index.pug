@@ -1,6 +1,10 @@
 extends ../mainLayout.pug
 
 block pageHeader
+    each val in globalInformations
+        .alert.alert-light
+            i.bi.bi-exclamation-diamond-fill 
+            | #{val}
     .page-title Főoldal
 
 block content
