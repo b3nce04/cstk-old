@@ -26,7 +26,6 @@ html(lang='hu')
                     li.nav-item
                         a.nav-link(href='/admin') Adminisztrátori felület
             .profile
-                img.picture.rounded-circle.mx-auto(src='../images/pic0.png' alt='profilkép' style=`border-width: 5px; border-color: ${user.color}`)
                 ul.user-info
                     li #{user.username} 
                         span (#{user.class.name})
@@ -35,6 +34,7 @@ html(lang='hu')
                     li
                         a(href='/account') Adataim | 
                         a.toggleLogout Kijelentkezés
+                .symbol(style=`background-color: ${user.color}`)
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container

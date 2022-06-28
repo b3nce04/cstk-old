@@ -35,12 +35,11 @@ const createGroup = async (req, res, next) => {
 };
 
 const changeState = async (req, res, next) => {
-	const searched = await groupModel.findOne({ where: { id: req.params.id } });
-	if (searched) {
-		const update = await groupModel.update(
-			{ isOpen: !searched.isOpen },
-			{ where: { id: req.params.id } }
-		);
+	const update = await groupModel.update(
+		{ isOpen: !searched.isOpen },
+		{ where: { id: req.params.id } }
+	);
+	if (update) {
 		if (update) {
 			req.flash(
 				"message",
@@ -54,8 +53,9 @@ const changeState = async (req, res, next) => {
 const getGroupMessagesByID = async (id) => {
 	return Promise.all(
 		JSON.parse(await getMessagesByGroupID(id)).map(async (item) => {
-			item.senderName = JSON.parse(await getUserByID(item.userID)).username;
-            item.senderColor = JSON.parse(await getUserByID(item.userID)).color;
+			const senderUser = JSON.parse(await getUserByID(item.userID));
+			item.senderName = senderUser.fullName || senderUser.username;
+            item.senderColor = senderUser.color;
 			return item;
 		})
 	);

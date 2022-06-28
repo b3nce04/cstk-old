@@ -24,8 +24,11 @@ block content
                 #groupMessages
                     each val in messages
                         .col.bg-white.mb-2.p-2.border.groupMessage(style=`border-left: 5px solid ${val.senderColor}!important`)
-                            span(data-bs-toggle="tooltip" data-bs-placement="top" title=val.fullName) #{val.senderName}: 
+                            span #{val.senderName}: 
                                 | #{val.text}
+                            - var time = moment(val.date)
+                            .time(data-bs-toggle='tooltip' data-bs-placement='right' title=time.format('LLLL')) #{`${time.format('LT')}`}
+
             if group.isOpen
                 form(method='POST', action=`/api/group/sendMessage/${group.id}`)
                     .row.g-3.align-items-center

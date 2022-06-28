@@ -10,7 +10,7 @@ block pageHeader
 
 block content
     .row
-        form.p-2(method='POST', action='/api/group/create')
+        form(method='POST', action='/api/group/create')
             label.form-label(for='exampleFormControlInput1') Név
             .input-group.mb-3
                 input#exampleFormControlInput1.form-control(type='text' name='name')

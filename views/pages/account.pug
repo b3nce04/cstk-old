@@ -7,21 +7,20 @@ block content
     .row
         .col-xl-4.mb-3
             .card
-                .card-header Profilkép
+                .card-header Profil
                 .card-body
-                    img.rounded(src='images/pic0.png' alt='profilkép')
-                    form(action='/api/update/picture' method='POST' enctype='multipart/form-data')
-                        label.form-label(for='formFile') JPG vagy PNG, kisebb mint 5 MB
-                        input.form-control(type="file" id='formFile' name='picture')
-                        button.btn.btn-primary(type='submit') Kép feltöltése
+                    button.btn.btn-primary Válassz emojit
                     form(action='/api/update/color' method='POST')
-                        label(for="exampleColorInput" class="form-label") Színbeállítás
-                        input(type="color" class="form-control form-control-color" name="color" value=user.color title="Válassz színt")
-                        button.btn.btn-primary(type='submit') Beállítás
+                        .my-3
+                            label(for="exampleColorInput" class="form-label") Válassz színt
+                            input(type="color" class="form-control form-control-color" name="color" value=user.color title="Válassz színt")
+                        button.btn.btn-primary.w-100(type='submit') Beállítás
         .col-xl-8.mb-3
             .card
                 .card-header Személyes adatok
                 .card-body
+                    - var birthDate = moment(user.birthDate).format('LL');
+                    - var registrationDate = moment(user.registrationDate).format('LLLL');
                     p
                         | Teljes név: 
                         b #{user.fullName || 'Nincs megadva'}
@@ -30,10 +29,10 @@ block content
                         b #{user.emailAddress}
                     p
                         | Születési dátum: 
-                        b #{user.birthDate || 'Nincs megadva'}
+                        b #{birthDate}
                     p
                         | Regisztráltál: 
-                        b #{user.registrationDate}
+                        b #{registrationDate}
     .row
         .col-12
             .card
@@ -42,3 +41,4 @@ block content
                     p Iskolád: nincs
                     p Osztályfőnököd: 
                         b #{user.class.headTeacherName}
+    script(src='scripts/emojiPicker.js')

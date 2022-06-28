@@ -1,13 +1,26 @@
 $(function () {
-	var path = window.location.pathname.split('/')[1];
+	var path = window.location.pathname.split("/")[1];
 	$('.nav-links li a[href="/' + path + '"]')
 		.parents("li")
 		.addClass("active");
+	var element = $("#groupMessages");
+	if (element) {
+		element.animate({
+			scrollTop: element[0].scrollHeight
+		}, 300);
 
-	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-		return new bootstrap.Tooltip(tooltipTriggerEl)
-	})
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  			return new bootstrap.Tooltip(tooltipTriggerEl)
+		})
+	}
+	new EmojiPicker({
+		trigger: [
+			{
+			  selector: 'button',
+			},
+		],
+	});
 });
 
 $("#btnNavbarToggle").click(function () {

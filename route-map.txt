@@ -12,12 +12,12 @@ Routes
 /register -> panel
 
 POST & GET requests
-/api/login
-/api/register
-/api/update/color
-/api/update/details
-/api/logout
+/api/login post
+/api/register post
+/api/update/color post
+/api/update/details post
+/api/logout get
 
-/api/group/create
-/api/group/sendMessage:id
-/api/group/changeState:id
+/api/group/create post
+/api/group/sendMessage:id post
+/api/group/changeState:id get

@@ -1,4 +1,5 @@
 import "dotenv/config";
+import {createRequire} from 'module'
 import express from "express";
 import session from "express-session";
 import flash from "connect-flash";
@@ -15,6 +16,10 @@ import adminRoutes from './routes/admin.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const require = createRequire(import.meta.url)
+const moment = require('moment')
+moment.updateLocale('hu', { invalidDate: "Nincs megadva" })
 
 await database
 	.authenticate()
@@ -60,6 +65,7 @@ app.use(async (req, res, next) => {
 		res.locals.sessionID = req.sessionID
 		res.locals.globalInformations = process.env.GLOBAL_INFORMATIONS.split('|')
 		res.locals.message = req.flash('message')
+		res.locals.moment = moment
 	}
 	next();
 });
