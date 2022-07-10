@@ -7,6 +7,9 @@ Routes
     /exams
     /my-exams
     /admin
+        /edit
+            /user
+            /group
     /account
 /login -> panel
 /register -> panel

@@ -1,4 +1,4 @@
-extends ../mainLayout.pug
+extends ../../mainLayout.pug
 
 block pageHeader
     .page-title Adminisztrátori felület
@@ -17,8 +17,11 @@ block content
             tbody
                 each val in studentsTable
                     tr
-                        td.col(style=`background-color: ${val.color}`)
-                        th(scope='row')= val.id
+                        td.col(style=`background-color: ${val.color}`) 
+                        th(scope='row')
+                            if (user.isAdmin)
+                                a.bi.bi-pencil-fill(href=`admin/edit/user/${val.id}`)
+                            |  #{val.id}
                         td= val.fullName || 'Nincs megadva'
                         td= val.username
                         td= val.emailAddress

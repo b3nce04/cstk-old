@@ -34,7 +34,7 @@ html(lang='hu')
                     li
                         a(href='/account') Adataim | 
                         a.toggleLogout Kijelentkezés
-                .symbol(style=`background-color: ${user.color}`)
+                .symbol(style=`background: rgb(2,0,36); background: linear-gradient(150deg, ${user.color} 10%, rgba(255,255,255,0) 100%);`) #{user.emoji}
         button#btnNavbarToggle.btn.btn-link >
         .content
             .container

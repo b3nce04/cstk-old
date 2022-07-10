@@ -28,6 +28,9 @@ const User = database.define('User', {
         type: DataTypes.STRING,
         defaultValue: '#FFFFFF'
     },
+    emoji: {
+        type: DataTypes.STRING,
+    },
     registrationDate: {
         type: DataTypes.DATE,
         defaultValue: database.fn('NOW')

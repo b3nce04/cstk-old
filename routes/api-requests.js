@@ -1,13 +1,13 @@
 import express from 'express'
 
-import {userLogin, userRegister, updateColor, isUserAdmin, logoutUser} from '../controllers/user.js'
+import {userLogin, userRegister, updateProfile, isUserAdmin, logoutUser} from '../controllers/user.js'
 import {createGroup, sendMessage, changeState} from '../controllers/group.js'
 
 const router = express.Router()
 
 router.post('/login', userLogin)
 router.post('/register', userRegister)
-router.post('/update/color', updateColor)
+router.post('/update/profile', updateProfile)
 //router.post('/update/details', updateUser)
 router.get('/logout', logoutUser)
 

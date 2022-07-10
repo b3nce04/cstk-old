@@ -9,8 +9,11 @@ block content
             .card
                 .card-header Profil
                 .card-body
-                    button.btn.btn-primary Válassz emojit
-                    form(action='/api/update/color' method='POST')
+                    form(action='/api/update/profile' method='POST')
+                        .mb-3
+                            label(for="exampleColorInput" class="form-label") Válassz emojit
+                            input#emoji.text-center.fs-3(type="text" class="form-control" name="emoji" value=user.emoji disabled='' maxLength='1')
+                        button.btn.btn-secondary.w-100#emojiSelector(type='button') Választás
                         .my-3
                             label(for="exampleColorInput" class="form-label") Válassz színt
                             input(type="color" class="form-control form-control-color" name="color" value=user.color title="Válassz színt")

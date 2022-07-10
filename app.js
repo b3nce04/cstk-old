@@ -4,7 +4,6 @@ import express from "express";
 import session from "express-session";
 import flash from "connect-flash";
 import passport from "passport";
-
 import database from "./controllers/database.js";
 import { isLoggedIn, isUserAdmin, authUser } from "./controllers/user.js";
 import { getClassList } from "./controllers/class.js";

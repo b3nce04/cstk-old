@@ -4,7 +4,7 @@ $(function () {
 		.parents("li")
 		.addClass("active");
 	var element = $("#groupMessages");
-	if (element) {
+	if (element.length) {
 		element.animate({
 			scrollTop: element[0].scrollHeight
 		}, 300);
@@ -17,9 +17,12 @@ $(function () {
 	new EmojiPicker({
 		trigger: [
 			{
-			  selector: 'button',
+			  selector: '#emojiSelector',
+			  insertInto: '#emoji'
 			},
 		],
+		closeButton: true,
+		specialButtons: '#0d6efd'
 	});
 });
 

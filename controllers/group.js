@@ -35,19 +35,14 @@ const createGroup = async (req, res, next) => {
 };
 
 const changeState = async (req, res, next) => {
-	const update = await groupModel.update(
-		{ isOpen: !searched.isOpen },
-		{ where: { id: req.params.id } }
-	);
-	if (update) {
-		if (update) {
-			req.flash(
-				"message",
-				"Sikeresen megváltoztattad a csoport állapotát!"
-			);
-			res.redirect(`/groups`);
-		}
-	}
+	const searched = await groupModel.findOne({where: {id: req.params.id}})
+    if (searched) {
+        const update = await groupModel.update({isOpen: !searched.isOpen}, {where: {id: req.params.id}});
+        if (update) {
+            req.flash('message', 'Sikeresen megváltoztattad a csoport állapotát!')
+            res.redirect(`/groups`)
+        }
+    }
 };
 
 const getGroupMessagesByID = async (id) => {

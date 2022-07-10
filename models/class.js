@@ -12,7 +12,7 @@ const Class = database.define('Class', {
     },
     adminID: {
         type: DataTypes.INTEGER,
-        defaultValue: 1
+        defaultValue: 0
     },
     headTeacherName: {
         type: DataTypes.STRING,

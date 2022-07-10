@@ -127,12 +127,14 @@ const isUserAdmin = (req, res, next) => {
     }
 }
 
-const updateColor = async (req, res, next) => {
-    const color = req.body.color
-    const update = await userModel.update({color: color}, {where: {id: req.user.id}});
+const updateProfile = async (req, res, next) => {
+    const {emoji, color} = req.body
+    console.log(emoji);
+    const update = await userModel.update({color: color, emoji: emoji}, {where: {id: req.user.id}});
     if (update) {
+        req.user.emoji = emoji
         req.user.color = color
-        req.flash('message', 'Sikeresen beállítottad a színt!')
+        req.flash('message', 'Sikeresen frissítetted az emoji-t és a színt!')
         res.redirect('/account')
     }
 }
@@ -155,7 +157,7 @@ export {
     isLoggedIn, 
     isNotLoggedIn, 
     countClassMembersByClassID, 
-    updateColor, 
+    updateProfile, 
     isUserAdmin,
     getAllUserByClassID,
     getUserByID
